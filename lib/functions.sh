@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+function add_config() {
+    if [ -z "$1" ]; then
+        echo "Usage: add_config project_name zone region /path/to/service-account/key-file"
+        exit 0
+    fi
+    local PROJECT=$1; local ZONE=$2; local REGION=$3; local GCP_SA_FILE=$4;
+    gcloud auth activate-service-account --key-file=$GCP_SA_FILE
+    gcloud config set project $PROJECT
+    gcloud config set compute/zone $ZONE
+    gcloud config set compute/region $REGION
+    gcloud config configurations list
+}
+
 function gcp_enable_api() {
   SERVICE=$1
   if [[ $(gcloud services list --format="value(NAME)" --filter="NAME:$SERVICE" 2>&1) != "$SERVICE" ]]; then
