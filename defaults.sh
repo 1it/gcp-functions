@@ -36,6 +36,7 @@ fi
 export GCP_API_LIST=(
     'container.googleapis.com'
     'containerregistry.googleapis.com'
+    'cloudresourcemanager.googleapis.com'
     'iam.googleapis.com'
     'sql-component.googleapis.com'
     'sqladmin.googleapis.com'
