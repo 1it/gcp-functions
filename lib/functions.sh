@@ -5,7 +5,7 @@ function add_config() {
         echo "Usage: add_config project_name zone region /path/to/service-account/key-file"
         exit 0
     fi
-    local PROJECT=$1; local ZONE=$2; local REGION=$3; local GCP_SA_FILE=$4;
+    local PROJECT=$2; local ZONE=$3; local REGION=$4; local GCP_SA_FILE=$5;
     gcloud auth activate-service-account --key-file=$GCP_SA_FILE
     gcloud config set project $PROJECT
     gcloud config set compute/zone $ZONE
