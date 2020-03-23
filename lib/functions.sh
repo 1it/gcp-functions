@@ -49,6 +49,15 @@ function gke_cluster_delete() {
     fi   
 }
 
+function gke_image_tag() {
+    IMAGE=$1; TAG=$2; LIMIT=${3:-1}
+    if gcloud container images list --format="value(NAME)" | grep -wq "${IMAGE}"; then
+        gcloud container images list-tags "${IMAGE}" --limit=${LIMIT} --filter="${TAG}" --format="value(TAGS)"
+    else
+        echo "Sorry, image: ${IMAGE} is not exists"
+    fi
+}
+
 function gcp_compute_internal_address_create() {
     NAME=$1
     if [[ $(gcloud compute addresses list --format="value(NAME)" --filter="NAME:$NAME") != "$NAME" ]]; then
